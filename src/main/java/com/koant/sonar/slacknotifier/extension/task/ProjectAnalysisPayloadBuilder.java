@@ -107,7 +107,7 @@ class ProjectAnalysisPayloadBuilder {
             shortText.append(format(" for branch [%s]", branch.get().getName().orElse("")));
         }
         shortText.append(". ");
-        shortText.append(format("See %s", projectUrl));
+        shortText.append(format("See %s", projectUrl + (branch.isPresent() ? "&branch=" + branch.get().getName().orElse("") : "")));
         shortText.append(qualityGate == null ? "." : format(". Quality gate status: %s", qualityGate.getStatus()));
 
         final Payload.PayloadBuilder builder = Payload.builder()

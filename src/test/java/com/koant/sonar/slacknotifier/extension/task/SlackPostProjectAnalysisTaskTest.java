@@ -37,7 +37,7 @@ public class SlackPostProjectAnalysisTaskTest {
 
     private SlackHttpClient httpClient;
 
-    private Settings settings;
+    private MapSettings settings;
     private I18n     i18n;
 
     @Before
@@ -57,7 +57,7 @@ public class SlackPostProjectAnalysisTaskTest {
         this.settings.setProperty(CONFIG.property() + "." + PROJECT_KEY + "." + PROJECT_REGEXP.property(), PROJECT_KEY);
         this.settings.setProperty(CONFIG.property() + "." + PROJECT_KEY + "." + CHANNEL.property(), "#random");
         this.settings.setProperty(CONFIG.property() + "." + PROJECT_KEY + "." + QG_FAIL_ONLY.property(), "false");
-        this.settings.setProperty("sonar.core.serverBaseURL", "http://your.sonar.com/");
+        this.settings.setProperty("sonar.core.serverBaseURL", "https://sonarqube.int.brivo.net/");
         this.httpClient = mock(SlackHttpClient.class);
         this.i18n = mock(I18n.class);
         when(this.i18n.message(ArgumentMatchers.any(Locale.class), anyString(), anyString())).thenAnswer(new Answer<String>() {

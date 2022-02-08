@@ -214,7 +214,7 @@ public class ProjectAnalysisPayloadBuilderTest {
             .includeBranch(true)
             .build();
         Assert.assertEquals("Project [Sonar Project Name] analyzed. See " +
-                                "http://localhost:9000/dashboard?id=project:key.", payload.getText());
+                                "http://localhost:9000/dashboard?id=project:key&branch=my-branch.", payload.getText());
     }
 
     @Test
@@ -230,7 +230,7 @@ public class ProjectAnalysisPayloadBuilderTest {
             .username("CKSSlackNotifier")
             .includeBranch(true)
             .build();
-        Assert.assertEquals(String.format("Project [Sonar Project Name] analyzed for branch [%s]. See http://localhost:9000/dashboard?id=project:key.",
+        Assert.assertEquals(String.format("Project [Sonar Project Name] analyzed for branch [%s]. See http://localhost:9000/dashboard?id=project:key&branch="+branchName+".",
             branchName), payload.getText());
     }
 
@@ -268,7 +268,7 @@ public class ProjectAnalysisPayloadBuilderTest {
                   @Override
                   public Type getType() {
 
-                      return Type.SHORT;
+                      return Type.BRANCH;
                   }
               };
     }
