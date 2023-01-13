@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.byoskill.sonar.slack</groupId>
   <artifactId>sonar-slack-notifier</artifactId>
-  <version>9.2.4-beta</version>
+  <version>9.2.4-beta2</version>
   <packaging>sonar-plugin</packaging>
 
   <name>Sonar Slack Notifier Plugin</name>
