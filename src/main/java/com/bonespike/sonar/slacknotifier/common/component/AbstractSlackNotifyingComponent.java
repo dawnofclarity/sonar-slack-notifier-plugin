@@ -1,6 +1,6 @@
-package com.koant.sonar.slacknotifier.common.component;
+package com.bonespike.sonar.slacknotifier.common.component;
 
-import com.koant.sonar.slacknotifier.common.SlackNotifierProp;
+import com.bonespike.sonar.slacknotifier.common.SlackNotifierProp;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;

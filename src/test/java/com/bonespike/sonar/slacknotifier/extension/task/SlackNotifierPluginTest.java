@@ -1,12 +1,6 @@
-package slacknotifier;
+package com.bonespike.sonar.slacknotifier.extension.task;
 
-import static com.koant.sonar.slacknotifier.common.SlackNotifierProp.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-
-import com.koant.sonar.slacknotifier.SlackNotifierPlugin;
-import com.koant.sonar.slacknotifier.extension.task.SlackPostProjectAnalysisTask;
+import com.bonespike.sonar.slacknotifier.SlackNotifierPlugin;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -16,6 +10,19 @@ import org.sonar.api.config.PropertyDefinition;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import static com.bonespike.sonar.slacknotifier.common.SlackNotifierProp.CONFIG;
+import static com.bonespike.sonar.slacknotifier.common.SlackNotifierProp.DEFAULT_CHANNEL;
+import static com.bonespike.sonar.slacknotifier.common.SlackNotifierProp.ENABLED;
+import static com.bonespike.sonar.slacknotifier.common.SlackNotifierProp.HOOK;
+import static com.bonespike.sonar.slacknotifier.common.SlackNotifierProp.INCLUDE_BRANCH;
+import static com.bonespike.sonar.slacknotifier.common.SlackNotifierProp.PROXY_IP;
+import static com.bonespike.sonar.slacknotifier.common.SlackNotifierProp.PROXY_PORT;
+import static com.bonespike.sonar.slacknotifier.common.SlackNotifierProp.PROXY_PROTOCOL;
+import static com.bonespike.sonar.slacknotifier.common.SlackNotifierProp.USER;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 public class SlackNotifierPluginTest {
 

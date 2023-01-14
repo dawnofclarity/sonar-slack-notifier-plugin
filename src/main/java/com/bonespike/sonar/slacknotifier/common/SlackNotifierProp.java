@@ -1,6 +1,6 @@
-package com.koant.sonar.slacknotifier.common;
+package com.bonespike.sonar.slacknotifier.common;
 
-import com.koant.sonar.slacknotifier.SlackNotifierPlugin;
+import com.bonespike.sonar.slacknotifier.SlackNotifierPlugin;
 
 public enum SlackNotifierProp {
 

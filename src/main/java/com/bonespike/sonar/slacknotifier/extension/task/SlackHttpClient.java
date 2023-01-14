@@ -14,12 +14,12 @@
  * is strictly forbidden unless prior written permission is obtained
  * from Faveeo SA.
  */
-package com.koant.sonar.slacknotifier.extension.task;
+package com.bonespike.sonar.slacknotifier.extension.task;
 
+import com.bonespike.sonar.slacknotifier.common.SlackNotifierProp;
 import com.github.seratch.jslack.api.webhook.Payload;
 import com.github.seratch.jslack.common.json.GsonFactory;
 import com.google.gson.Gson;
-import com.koant.sonar.slacknotifier.common.SlackNotifierProp;
 import okhttp3.*;
 import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.util.Strings;

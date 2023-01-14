@@ -1,6 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.byoskill.sonar.slack</groupId>
+  <groupId>com.bonespike.sonar.slack</groupId>
   <artifactId>sonar-slack-notifier</artifactId>
   <version>9.2.4-beta2</version>
   <packaging>sonar-plugin</packaging>
@@ -139,15 +139,15 @@
         <configuration>
           <jarName>sonar-slack-notifier-${project.version}</jarName>
           <pluginKey>sonar-slack-notifier</pluginKey>
-          <pluginClass>com.koant.sonar.slacknotifier.SlackNotifierPlugin</pluginClass>
+          <pluginClass>com.bonespike.sonar.slacknotifier.SlackNotifierPlugin</pluginClass>
           <pluginName>Sonar Slack Notifier</pluginName>
           <pluginDescription>Sends notifications to Slack</pluginDescription>
           <sonarQubeMinVersion>8.0</sonarQubeMinVersion>
           <pluginUrl>https://github.com/sleroy/sonar-slack-notifier-plugin</pluginUrl>
           <pluginIssueTrackerUrl>https://github.com/sleroy/sonar-slack-notifier-plugin/issues</pluginIssueTrackerUrl>
           <pluginSourcesUrl>https://github.com/sleroy/sonar-slack-notifier-plugin</pluginSourcesUrl>
-          <pluginOrganizationName>Sylvain Leroy</pluginOrganizationName>
-          <pluginOrganizationUrl>https://github.com/sleroy</pluginOrganizationUrl>
+          <pluginOrganizationName>Bonespike</pluginOrganizationName>
+          <pluginOrganizationUrl>https://github.com/bonespike</pluginOrganizationUrl>
         </configuration>
       </plugin>
     </plugins>

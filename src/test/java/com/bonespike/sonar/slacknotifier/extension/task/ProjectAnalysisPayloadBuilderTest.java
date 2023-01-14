@@ -1,14 +1,14 @@
-package com.koant.sonar.slacknotifier.extension.task;
+package com.bonespike.sonar.slacknotifier.extension.task;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.bonespike.sonar.slacknotifier.common.component.ProjectConfig;
+import com.bonespike.sonar.slacknotifier.common.component.ProjectConfigBuilder;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.seratch.jslack.api.model.Attachment;
 import com.github.seratch.jslack.api.model.Field;
 import com.github.seratch.jslack.api.webhook.Payload;
-import com.koant.sonar.slacknotifier.common.component.ProjectConfig;
-import com.koant.sonar.slacknotifier.common.component.ProjectConfigBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.RandomStringUtils;
 import org.junit.After;

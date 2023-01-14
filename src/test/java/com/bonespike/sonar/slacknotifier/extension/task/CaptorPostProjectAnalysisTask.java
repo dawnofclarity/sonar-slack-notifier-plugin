@@ -1,4 +1,4 @@
-package com.koant.sonar.slacknotifier.extension.task;
+package com.bonespike.sonar.slacknotifier.extension.task;
 
 import org.sonar.api.ce.posttask.PostProjectAnalysisTask;
 

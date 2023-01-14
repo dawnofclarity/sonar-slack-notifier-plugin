@@ -1,16 +1,13 @@
-package com.koant.sonar.slacknotifier.extension.task;
+package com.bonespike.sonar.slacknotifier.extension.task;
 
+import com.bonespike.sonar.slacknotifier.common.SlackNotifierProp;
 import com.github.seratch.jslack.api.webhook.Payload;
-import com.koant.sonar.slacknotifier.common.SlackNotifierProp;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentMatchers;
-import org.mockito.Matchers;
-import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import org.sonar.api.ce.posttask.PostProjectAnalysisTask;
-import org.sonar.api.config.Settings;
 import org.sonar.api.config.internal.ConfigurationBridge;
 import org.sonar.api.config.internal.MapSettings;
 import org.sonar.api.i18n.I18n;
@@ -18,8 +15,6 @@ import org.sonar.api.i18n.I18n;
 import java.io.IOException;
 import java.util.Locale;
 
-import static com.koant.sonar.slacknotifier.common.SlackNotifierProp.*;
-import static com.koant.sonar.slacknotifier.extension.task.Analyses.PROJECT_KEY;
 import static org.mockito.Mockito.*;
 
 /**
@@ -44,19 +39,19 @@ public class SlackPostProjectAnalysisTaskTest {
     public void before() throws IOException {
         this.postProjectAnalysisTask = new CaptorPostProjectAnalysisTask();
         this.settings = new MapSettings();
-        this.settings.setProperty(ENABLED.property(), "true");
+        this.settings.setProperty(SlackNotifierProp.ENABLED.property(), "true");
         this.settings.setProperty(SlackNotifierProp.HOOK.property(), HOOK);
-        this.settings.setProperty(CHANNEL.property(), "channel");
-        this.settings.setProperty(USER.property(), "user");
-        this.settings.setProperty(ICON_URL.property(), "");
-        this.settings.setProperty(PROXY_IP.property(), "127.0.0.1");
-        this.settings.setProperty(PROXY_PORT.property(), "8080");
-        this.settings.setProperty(PROXY_PROTOCOL.property(), "http");
-        this.settings.setProperty(DEFAULT_CHANNEL.property(), "general");
-        this.settings.setProperty(CONFIG.property(), PROJECT_KEY);
-        this.settings.setProperty(CONFIG.property() + "." + PROJECT_KEY + "." + PROJECT_REGEXP.property(), PROJECT_KEY);
-        this.settings.setProperty(CONFIG.property() + "." + PROJECT_KEY + "." + CHANNEL.property(), "#random");
-        this.settings.setProperty(CONFIG.property() + "." + PROJECT_KEY + "." + QG_FAIL_ONLY.property(), "false");
+        this.settings.setProperty(SlackNotifierProp.CHANNEL.property(), "channel");
+        this.settings.setProperty(SlackNotifierProp.USER.property(), "user");
+        this.settings.setProperty(SlackNotifierProp.ICON_URL.property(), "");
+        this.settings.setProperty(SlackNotifierProp.PROXY_IP.property(), "127.0.0.1");
+        this.settings.setProperty(SlackNotifierProp.PROXY_PORT.property(), "8080");
+        this.settings.setProperty(SlackNotifierProp.PROXY_PROTOCOL.property(), "http");
+        this.settings.setProperty(SlackNotifierProp.DEFAULT_CHANNEL.property(), "general");
+        this.settings.setProperty(SlackNotifierProp.CONFIG.property(), Analyses.PROJECT_KEY);
+        this.settings.setProperty(SlackNotifierProp.CONFIG.property() + "." + Analyses.PROJECT_KEY + "." + SlackNotifierProp.PROJECT_REGEXP.property(), Analyses.PROJECT_KEY);
+        this.settings.setProperty(SlackNotifierProp.CONFIG.property() + "." + Analyses.PROJECT_KEY + "." + SlackNotifierProp.CHANNEL.property(), "#random");
+        this.settings.setProperty(SlackNotifierProp.CONFIG.property() + "." + Analyses.PROJECT_KEY + "." + SlackNotifierProp.QG_FAIL_ONLY.property(), "false");
         this.settings.setProperty("sonar.core.serverBaseURL", "https://sonarqube.int.brivo.net/");
         this.httpClient = mock(SlackHttpClient.class);
         this.i18n = mock(I18n.class);
@@ -94,7 +89,7 @@ public class SlackPostProjectAnalysisTaskTest {
 
     @Test
     public void shouldSkipIfPluginDisabled() throws Exception {
-        this.settings.setProperty(ENABLED.property(), "false");
+        this.settings.setProperty(SlackNotifierProp.ENABLED.property(), "false");
         Analyses.simple(this.postProjectAnalysisTask);
         this.task.finished(context(this.postProjectAnalysisTask.getProjectAnalysis()));
         verifyNoInteractions(this.httpClient);
@@ -102,7 +97,7 @@ public class SlackPostProjectAnalysisTaskTest {
 
     @Test
     public void shouldSkipIfReportFailedQualityGateButOk() throws Exception {
-        this.settings.setProperty(CONFIG.property() + "." + PROJECT_KEY + "." + QG_FAIL_ONLY.property(), "true");
+        this.settings.setProperty(SlackNotifierProp.CONFIG.property() + "." + Analyses.PROJECT_KEY + "." + SlackNotifierProp.QG_FAIL_ONLY.property(), "true");
         Analyses.simple(this.postProjectAnalysisTask);
         this.task.finished(context(this.postProjectAnalysisTask.getProjectAnalysis()));
         verifyNoInteractions(this.httpClient);

@@ -1,6 +1,6 @@
-package com.koant.sonar.slacknotifier;
+package com.bonespike.sonar.slacknotifier;
 
-import com.koant.sonar.slacknotifier.extension.task.SlackPostProjectAnalysisTask;
+import com.bonespike.sonar.slacknotifier.extension.task.SlackPostProjectAnalysisTask;
 import org.sonar.api.Plugin;
 import org.sonar.api.PropertyType;
 import org.sonar.api.config.PropertyDefinition;
@@ -9,7 +9,7 @@ import org.sonar.api.config.PropertyFieldDefinition;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.koant.sonar.slacknotifier.common.SlackNotifierProp.*;
+import static com.bonespike.sonar.slacknotifier.common.SlackNotifierProp.*;
 
 public class SlackNotifierPlugin implements Plugin {
 
