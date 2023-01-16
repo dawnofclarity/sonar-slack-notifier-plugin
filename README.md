@@ -1,16 +1,18 @@
 # Warning
 
-This project is a fork of the original work from https://github.com/kogitant/sonar-slack-notifier-plugin.
-I made modifications to keep it working for the latest versions of SonarQube.
+This project is a fork of the original work from https://github.com/sleroy/sonar-slack-notifier-plugin.
+I made modifications to keep it working for the latest versions of SonarQube, then added new functionality.
+I felt the amount of changes warrented repackaging the code under my own domain, and as such, I do not plan on 
+merging it back to sleroy's work as a result.  Their work is foundational to this plugin.
 
 ## Pre-requisites
 
-The actual version is compiled for *SonarQube v8.0 and JDK 11*.
+The actual version is compiled for *SonarQube v8.7/9.6 and JDK 11*.
 
-# CKS Sonar Slack Notifier Plugin
+# Bonespike Sonar Slack Notifier Plugin
 SonarQube plugin for sending notifications to Slack
 
-This plugin sends a Slack message of project analysis outcome to congired project specific slack channel.
+This plugin sends a Slack message of project analysis outcome to configured project specific slack channel.
 The plugin uses Incoming Web Hook as the integration mechanism with Slack.
 
 # Install
@@ -18,7 +20,7 @@ The plugin must be placed in *SONAR_HOME/extensions/plugins* directory and Sonar
 
 ## Using latest release
 You can find the latest release from https://github.com/bonespike/sonar-slack-notifier-plugin/releases/ page.
-Download the 
+Download the latest verion's jar file and drop in the directory mentioned above
 
 ## From sources
 To build the plugin simply run
@@ -27,7 +29,7 @@ mvn clean package
 ```
 
 
-# Configuration
+# Configuration (updates needed)
 After the plugin has been installed, you need to configure it.
 Although SonarQube offers project level configurations for some plugins, they cannot be used with this plugin because it runs in the "server side", and only sees the global settings.
 
@@ -62,6 +64,7 @@ Notifications can be sent for all Quality Gate statuses, or just for WARNING/ERR
 * Tested with SonarQube 7.2 and 7.3 against Slack on 23.02.2019
 
 # Inspired by
+* https://github.com/sleroy/sonar-slack-notifier-plugin
 * https://github.com/astrebel/sonar-slack-notifier-plugin
 * https://github.com/dbac2002/sonar-hipchat-plugin
 
@@ -69,8 +72,7 @@ Notifications can be sent for all Quality Gate statuses, or just for WARNING/ERR
 * https://github.com/seratch/jslack
 
 # SonarQube Plugin Development guides
-* http://docs.sonarqube.org/display/DEV/Adding+Hooks
-* http://docs.sonarqube.org/display/DEV/Build+plugin
+* https://docs.sonarqube.org/latest/extension-guide/developing-a-plugin/plugin-basics/#api-basics
 
 # Slack webhook integration and message formatting guides
  * https://api.slack.com/custom-integrations
