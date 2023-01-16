@@ -4,10 +4,11 @@ import com.bonespike.sonar.slacknotifier.common.component.ProjectConfig;
 import com.github.seratch.jslack.api.model.Attachment;
 import com.github.seratch.jslack.api.model.Field;
 import com.github.seratch.jslack.api.webhook.Payload;
+import org.apache.commons.lang.text.StrSubstitutor;
 import org.sonar.api.ce.posttask.Branch;
 import org.sonar.api.ce.posttask.PostProjectAnalysisTask;
 import org.sonar.api.ce.posttask.QualityGate;
-import org.sonar.api.i18n.I18n;
+// import org.sonar.api.i18n.I18n;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
@@ -17,7 +18,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.lang.String.format;
-import static org.apache.commons.lang3.StringUtils.isNotBlank;
+import static org.apache.commons.lang.StringUtils.isNotBlank;
+// import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 /**
  * Created by ak on 18/10/16.
@@ -39,23 +41,26 @@ class ProjectAnalysisPayloadBuilder {
     }
 
     private final PostProjectAnalysisTask.ProjectAnalysis analysis;
+    private final String notificationTemplate;
     private final DecimalFormat percentageFormat;
-    private I18n i18n;
+    private boolean includeGate;
     private ProjectConfig projectConfig;
     private String iconUrl;
     private String slackUser;
     private String projectUrl;
     private boolean includeBranch;
+    private Map<String,String> props;
 
-    private ProjectAnalysisPayloadBuilder(final PostProjectAnalysisTask.ProjectAnalysis analysis) {
+    private ProjectAnalysisPayloadBuilder(final PostProjectAnalysisTask.ProjectAnalysis analysis, final String template) {
         this.analysis = analysis;
+        this.notificationTemplate = template;
         // Format percentages as 25.01 instead of 25.0066666666666667 etc.
         this.percentageFormat = new DecimalFormat();
         this.percentageFormat.setMaximumFractionDigits(2);
     }
 
-    static ProjectAnalysisPayloadBuilder of(final PostProjectAnalysisTask.ProjectAnalysis analysis) {
-        return new ProjectAnalysisPayloadBuilder(analysis);
+    static ProjectAnalysisPayloadBuilder of(final PostProjectAnalysisTask.ProjectAnalysis analysis, String template) {
+        return new ProjectAnalysisPayloadBuilder(analysis,template);
     }
 
     ProjectAnalysisPayloadBuilder projectConfig(final ProjectConfig projectConfig) {
@@ -63,8 +68,8 @@ class ProjectAnalysisPayloadBuilder {
         return this;
     }
 
-    ProjectAnalysisPayloadBuilder i18n(final I18n i18n) {
-        this.i18n = i18n;
+    ProjectAnalysisPayloadBuilder includeGate(boolean includeGate) {
+       this.includeGate = includeGate;
         return this;
     }
 
@@ -72,6 +77,11 @@ class ProjectAnalysisPayloadBuilder {
         this.slackUser = slackUser;
         return this;
     }
+    ProjectAnalysisPayloadBuilder props(final Map props) {
+        this.props = props;
+        return this;
+    }
+
 
     ProjectAnalysisPayloadBuilder projectUrl(final String projectUrl) {
         this.projectUrl = projectUrl;
@@ -92,8 +102,10 @@ class ProjectAnalysisPayloadBuilder {
         assertNotNull(projectConfig, "projectConfig");
         assertNotNull(projectUrl, "projectUrl");
         assertNotNull(slackUser, "slackUser");
-        assertNotNull(i18n, "i18n");
+        // assertNotNull(i18n, "i18n");
         assertNotNull(analysis, "analysis");
+
+        StrSubstitutor substitutor = new StrSubstitutor(props);
 
         final String notifyPrefix = isNotBlank(projectConfig.getNotify()) ? format("<!%s> ", projectConfig.getNotify()) : "";
 
@@ -108,13 +120,13 @@ class ProjectAnalysisPayloadBuilder {
         }
         shortText.append(". ");
         shortText.append(format("See %s", projectUrl + (branch.isPresent() ? "&branch=" + branch.get().getName().orElse("") : "")));
-        shortText.append(qualityGate == null ? "." : format(". Quality gate status: %s", qualityGate.getStatus()));
+        shortText.append( qualityGate == null ? "." : format(". Quality gate status: %s", qualityGate.getStatus()));
 
         final Payload.PayloadBuilder builder = Payload.builder()
-            .channel(projectConfig.getSlackChannel())
-            .username(slackUser)
-            .text(shortText.toString())
-            .attachments(qualityGate == null ? null : buildConditionsAttachment(qualityGate, projectConfig.isQgFailOnly()));
+     //       .channel(projectConfig.getSlackChannel())
+     //       .username(slackUser)
+            .text(substitutor.replace(this.notificationTemplate))
+            .attachments((!includeGate || qualityGate == null) ? null : buildConditionsAttachment(qualityGate, projectConfig.isQgFailOnly()));
 
         if (iconUrl != null) {
             builder.iconUrl(iconUrl);
@@ -158,7 +170,7 @@ class ProjectAnalysisPayloadBuilder {
      */
     private Field translate(final QualityGate.Condition condition) {
         final String i18nKey = "metric." + condition.getMetricKey() + ".name";
-        final String conditionName = i18n.message(Locale.ENGLISH, i18nKey, condition.getMetricKey());
+        final String conditionName = condition.getMetricKey(); //i18n.message(Locale.ENGLISH, i18nKey, condition.getMetricKey());
 
         if (QualityGate.EvaluationStatus.NO_VALUE.equals(condition.getStatus())) {
             // No value for given metric

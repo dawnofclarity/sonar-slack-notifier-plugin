@@ -2,7 +2,8 @@ package com.bonespike.sonar.slacknotifier.common.component;
 
 import com.bonespike.sonar.slacknotifier.common.SlackNotifierProp;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
+// import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.sonar.api.ce.posttask.QualityGate;
 import org.sonar.api.config.Configuration;
@@ -13,7 +14,7 @@ import java.util.stream.Collectors;
 
 /**
  * Abstract base component for Slack notifying Sonar extensions.
- * Concrete implementations must call com.koant.sonar.slacknotifier.common.component
+ * Concrete implementations must call com.bonespike.sonar.slacknotifier.common.component
  * .AbstractSlackNotifyingComponent#refreshSettings() in the beginning of actual execution.
  */
 @Slf4j
@@ -87,6 +88,19 @@ public abstract class AbstractSlackNotifyingComponent {
         final Optional<String> icon = this.configuration.get(SlackNotifierProp.ICON_URL.property());
         return icon.orElse(null);
     }
+    protected Boolean getIncludeGate() {
+        final Optional<String> includeGate = this.configuration.get(SlackNotifierProp.INCLUDE_GATE.property());
+        return Boolean.parseBoolean(includeGate.orElse("false"));
+    }
+
+    protected String getSlackTemplate(){
+        final Optional<String> icon = this.configuration.get(SlackNotifierProp.NOTIFICATION_TEMPLATE.property());
+        return icon.orElse("No template");
+    }
+    protected String getServerToken(){
+        final Optional<String> icon = this.configuration.get(SlackNotifierProp.SERVER_TOKEN.property());
+        return icon.orElse("No token");
+    }
 
     protected boolean isPluginEnabled() {
         return this.configuration.getBoolean(SlackNotifierProp.ENABLED.property())
@@ -118,6 +132,8 @@ public abstract class AbstractSlackNotifyingComponent {
         }
         return url + "/";
     }
+
+
 
     protected Optional<ProjectConfig> getProjectConfig(final String projectKey) {
         final List<ProjectConfig> projectConfigs = this.searchForProjectConfig(projectKey);

@@ -1,17 +1,25 @@
 package com.bonespike.sonar.slacknotifier.extension.task;
 
 import com.bonespike.sonar.slacknotifier.common.component.ProjectConfig;
+import com.bonespike.sonar.slacknotifier.sonarclient.MeasureHistoryDetails;
+import com.bonespike.sonar.slacknotifier.sonarclient.ProjectMeasure;
+import com.bonespike.sonar.slacknotifier.sonarclient.SonarClient;
 import com.github.seratch.jslack.api.webhook.Payload;
 import com.bonespike.sonar.slacknotifier.common.component.AbstractSlackNotifyingComponent;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.assertj.core.util.VisibleForTesting;
 import org.sonar.api.ce.posttask.PostProjectAnalysisTask;
 import org.sonar.api.config.Configuration;
-import org.sonar.api.i18n.I18n;
+// import org.sonar.api.i18n.I18n;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -21,14 +29,16 @@ import java.util.Optional;
 public class SlackPostProjectAnalysisTask extends AbstractSlackNotifyingComponent implements PostProjectAnalysisTask {
 
     private static final Logger LOG = Loggers.get(SlackPostProjectAnalysisTask.class);
-
-    private final I18n i18n;
+    private List<String> defaultMetrics = Arrays.asList("ncloc","development_cost","sqale_index","vulnerabilities","security_rating","security_review_rating");
     private final SlackHttpClient httpClient;
 
     @VisibleForTesting
-    SlackPostProjectAnalysisTask(final SlackHttpClient httpClient, final Configuration settings, final I18n i18n) {
+    SlackPostProjectAnalysisTask(final SlackHttpClient httpClient, final Configuration settings
+    // ,final I18n i18n
+    ) {
         super(settings);
-        this.i18n = i18n;
+        LOG.info("======================SLACK===============");
+    //    this.i18n = i18n;
         this.httpClient = httpClient;
     }
 
@@ -36,11 +46,13 @@ public class SlackPostProjectAnalysisTask extends AbstractSlackNotifyingComponen
      * Default constructor invoked by SonarQube.
      *
      * @param settings
-     * @param i18n
      */
-    public SlackPostProjectAnalysisTask(final Configuration settings, final I18n i18n) {
+    public SlackPostProjectAnalysisTask(final Configuration settings
+    //    , final I18n i18n
+    ) {
         super(settings);
-        this.i18n = i18n;
+        LOG.info("======================SLACK===============");
+//        this.i18n = i18n;
         httpClient = new SlackHttpClient(settings);
 
     }
@@ -66,6 +78,8 @@ public class SlackPostProjectAnalysisTask extends AbstractSlackNotifyingComponen
         if (!projectConfigOptional.isPresent()) {
             return;
         }
+        LOG.info("getting project metrics");
+        // final List<ProjectMeasure> metrics = S
 
 
         // final var projectConfig =
@@ -86,14 +100,37 @@ public class SlackPostProjectAnalysisTask extends AbstractSlackNotifyingComponen
         }
 
         final String hook = this.getSlackHook(projectConfig);
+        Map lookupMap = new HashMap<String,String>();
+        LOG.info("=====================================");
+        try {
+            SonarClient sc = new SonarClient(getServerToken(), getSonarServerUrl());
+            List<ProjectMeasure> latestMeasures = sc.getMeasures(projectConfig.getProjectKey(), defaultMetrics);
 
+
+            for (ProjectMeasure m : latestMeasures){
+                LOG.info("adding " + m.getMetric() + "with value " + m.getValue());
+                lookupMap.put("analysis."+m.getMetric(),m.getValue());
+                lookupMap.put("analysis.prior."+m.getMetric(),m.getLastValue());
+                lookupMap.put("analysis.diff."+ m.getMetric(),m.getDiff());
+            }
+        } catch (InterruptedException|IOException|URISyntaxException e) {
+            LOG.error("problem with getting stats",e);
+            e.printStackTrace();
+        }
         LOG.info("Slack notification will be sent: {}", analysis.toString());
 
+        lookupMap.put("project.url",this.projectUrl(projectKey));
+        lookupMap.put("project.name",analysis.getProject().getName());
+        lookupMap.put("analysis.targetBranch",targetBranch);
+        lookupMap.put("analysis.buildBranch",builtBranch);
+
         //final var payload =
-        Payload payload = ProjectAnalysisPayloadBuilder.of(analysis)
-            .i18n(this.i18n)
+        Payload payload = ProjectAnalysisPayloadBuilder.of(analysis, this.getSlackTemplate())
+            // .i18n(this.i18n)
             .projectConfig(projectConfig)
             .projectUrl(this.projectUrl(projectKey))
+            .props(lookupMap)
+            .includeGate(this.getIncludeGate())
             .includeBranch(this.isBranchEnabled())
             .username(this.getSlackUser())
             .iconUrl(this.getIconUrl())

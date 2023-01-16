@@ -21,7 +21,7 @@ import com.github.seratch.jslack.api.webhook.Payload;
 import com.github.seratch.jslack.common.json.GsonFactory;
 import com.google.gson.Gson;
 import okhttp3.*;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.assertj.core.util.Strings;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;

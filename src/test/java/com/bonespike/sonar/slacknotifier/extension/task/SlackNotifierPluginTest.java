@@ -16,9 +16,12 @@ import static com.bonespike.sonar.slacknotifier.common.SlackNotifierProp.DEFAULT
 import static com.bonespike.sonar.slacknotifier.common.SlackNotifierProp.ENABLED;
 import static com.bonespike.sonar.slacknotifier.common.SlackNotifierProp.HOOK;
 import static com.bonespike.sonar.slacknotifier.common.SlackNotifierProp.INCLUDE_BRANCH;
+import static com.bonespike.sonar.slacknotifier.common.SlackNotifierProp.INCLUDE_GATE;
+import static com.bonespike.sonar.slacknotifier.common.SlackNotifierProp.NOTIFICATION_TEMPLATE;
 import static com.bonespike.sonar.slacknotifier.common.SlackNotifierProp.PROXY_IP;
 import static com.bonespike.sonar.slacknotifier.common.SlackNotifierProp.PROXY_PORT;
 import static com.bonespike.sonar.slacknotifier.common.SlackNotifierProp.PROXY_PROTOCOL;
+import static com.bonespike.sonar.slacknotifier.common.SlackNotifierProp.SERVER_TOKEN;
 import static com.bonespike.sonar.slacknotifier.common.SlackNotifierProp.USER;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -37,7 +40,7 @@ public class SlackNotifierPluginTest {
         verify(mockContext, times(1)).addExtensions(arg.capture());
 
         final List extensions = arg.getValue();
-        Assert.assertEquals(10, extensions.size());
+        Assert.assertEquals(13, extensions.size());
         Assert.assertEquals(HOOK.property(), ((PropertyDefinition) extensions.get(0)).key());
         Assert.assertEquals(USER.property(), ((PropertyDefinition) extensions.get(1)).key());
         Assert.assertEquals(PROXY_IP.property(), ((PropertyDefinition) extensions.get(2)).key());
@@ -46,8 +49,11 @@ public class SlackNotifierPluginTest {
         Assert.assertEquals(ENABLED.property(), ((PropertyDefinition) extensions.get(5)).key());
         Assert.assertEquals(INCLUDE_BRANCH.property(), ((PropertyDefinition) extensions.get(6)).key());
         Assert.assertEquals(DEFAULT_CHANNEL.property(), ((PropertyDefinition) extensions.get(7)).key());
-        Assert.assertEquals(CONFIG.property(), ((PropertyDefinition) extensions.get(8)).key());
-        Assert.assertEquals(SlackPostProjectAnalysisTask.class, extensions.get(9));
+        Assert.assertEquals(NOTIFICATION_TEMPLATE.property(), ((PropertyDefinition) extensions.get(8)).key());
+        Assert.assertEquals(SERVER_TOKEN.property(), ((PropertyDefinition) extensions.get(9)).key());
+        Assert.assertEquals(INCLUDE_GATE.property(), ((PropertyDefinition) extensions.get(10)).key());
+        Assert.assertEquals(CONFIG.property(), ((PropertyDefinition) extensions.get(11)).key());
+        Assert.assertEquals(SlackPostProjectAnalysisTask.class, extensions.get(12));
 
     }
 
@@ -65,7 +71,7 @@ public class SlackNotifierPluginTest {
         final Set<Integer> indexes = extensions.stream().filter(PropertyDefinition.class::isInstance)
             .map(PropertyDefinition.class::cast).map(PropertyDefinition::index).
                 collect(Collectors.toSet());
-        Assert.assertEquals(9, indexes.size());
+        Assert.assertEquals(12, indexes.size());
 
     }
 

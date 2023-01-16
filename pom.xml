@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.bonespike.sonar.slack</groupId>
   <artifactId>sonar-slack-notifier</artifactId>
-  <version>9.2.4-beta2</version>
+  <version>10.0-beta1</version>
   <packaging>sonar-plugin</packaging>
 
   <name>Sonar Slack Notifier Plugin</name>
@@ -24,7 +24,8 @@
 
     <!-- JaCoCo support -->
     <argLine />
-    <sonar.version>9.2.4.50792</sonar.version>
+    <sonar.version>9.8.0.203</sonar.version>
+    <sonar.testingHarnessVersion>9.5.0.56709</sonar.testingHarnessVersion>
     <jackson-databind.version>2.10.1</jackson-databind.version>
   </properties>
 
@@ -39,22 +40,27 @@
     <!-- Dependencies provided by SonarQube server -->
     <!-- https://mvnrepository.com/artifact/org.sonarsource.sonarqube/sonar-plugin-api -->
     <dependency>
-      <groupId>org.sonarsource.sonarqube</groupId>
+      <groupId>org.sonarsource.api.plugin</groupId>
       <artifactId>sonar-plugin-api</artifactId>
       <version>${sonar.version}</version>
       <scope>provided</scope>
     </dependency>
+<!--    <dependency>-->
+<!--      <groupId>org.apache.commons</groupId>-->
+<!--      <artifactId>commons-lang3</artifactId>-->
+<!--      <version>3.9</version>-->
+<!--    </dependency>-->
     <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-lang3</artifactId>
-      <version>3.9</version>
+      <!-- packaged with the plugin -->
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>2.6</version>
     </dependency>
-
     <!-- Dependencies of this plugin, not provided by SonarQube -->
     <dependency>
       <groupId>com.github.seratch</groupId>
       <artifactId>jslack</artifactId>
-      <version>3.3.0</version>
+      <version>3.4.2</version>
     </dependency>
     <dependency>
       <groupId>com.squareup.okhttp3</groupId>
@@ -82,14 +88,14 @@
       <version>3.2.4</version>
       <scope>compile</scope>
     </dependency>
-
-    <!-- This is needed in tests to assert i18n behaviour -->
     <dependency>
       <groupId>org.sonarsource.sonarqube</groupId>
-      <artifactId>sonar-core</artifactId>
-      <version>${sonar.version}</version>
+      <artifactId>sonar-testing-harness</artifactId>
+      <version>${sonar.testingHarnessVersion}</version>
       <scope>test</scope>
     </dependency>
+    <!-- This is needed in tests to assert i18n behaviour -->
+
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
@@ -126,11 +132,11 @@
         <artifactId>jacoco-maven-plugin</artifactId>
         <version>${jacoco.version}</version>
       </plugin>
-      <plugin>
-        <groupId>org.sonarsource.scanner.maven</groupId>
-        <artifactId>sonar-maven-plugin</artifactId>
-        <version>3.7.0.1746</version>
-      </plugin>
+<!--      <plugin>-->
+<!--        <groupId>org.sonarsource.scanner.maven</groupId>-->
+<!--        <artifactId>sonar-maven-plugin</artifactId>-->
+<!--        <version>3.7.0.1746</version>-->
+<!--      </plugin>-->
       <plugin>
         <groupId>org.sonarsource.sonar-packaging-maven-plugin</groupId>
         <artifactId>sonar-packaging-maven-plugin</artifactId>
@@ -143,9 +149,9 @@
           <pluginName>Sonar Slack Notifier</pluginName>
           <pluginDescription>Sends notifications to Slack</pluginDescription>
           <sonarQubeMinVersion>8.0</sonarQubeMinVersion>
-          <pluginUrl>https://github.com/sleroy/sonar-slack-notifier-plugin</pluginUrl>
-          <pluginIssueTrackerUrl>https://github.com/sleroy/sonar-slack-notifier-plugin/issues</pluginIssueTrackerUrl>
-          <pluginSourcesUrl>https://github.com/sleroy/sonar-slack-notifier-plugin</pluginSourcesUrl>
+          <pluginUrl>https://github.com/bonespike/sonar-slack-notifier-plugin</pluginUrl>
+          <pluginIssueTrackerUrl>https://github.com/bonespike/sonar-slack-notifier-plugin/issues</pluginIssueTrackerUrl>
+          <pluginSourcesUrl>https://github.com/bonespike/sonar-slack-notifier-plugin</pluginSourcesUrl>
           <pluginOrganizationName>Bonespike</pluginOrganizationName>
           <pluginOrganizationUrl>https://github.com/bonespike</pluginOrganizationUrl>
         </configuration>

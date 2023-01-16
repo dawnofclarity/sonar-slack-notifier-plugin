@@ -17,7 +17,7 @@ The plugin uses Incoming Web Hook as the integration mechanism with Slack.
 The plugin must be placed in *SONAR_HOME/extensions/plugins* directory and SonarQube must be restarted.
 
 ## Using latest release
-You can find the latest release from https://github.com/sleroy/sonar-slack-notifier-plugin/releases/ page.
+You can find the latest release from https://github.com/bonespike/sonar-slack-notifier-plugin/releases/ page.
 Download the 
 
 ## From sources
@@ -46,7 +46,7 @@ The project key of any SonarQube project can be found in the project page (botto
 ![](documentation/screenshots/project_key_from_project_page.png?raw=true)
 
 ## Wildcard support
-The project key supports wildcards at the end. See https://github.com/sleroy/sonar-slack-notifier-plugin/issues/2
+The project key supports wildcards at the end. See https://github.com/bonespike/sonar-slack-notifier-plugin/issues/2
 
 ## Only send notification when Quality Gate fails
 Notifications can be sent for all Quality Gate statuses, or just for WARNING/ERROR statuses. See https://github.com/kogitant/sonar-slack-notifier-plugin/issues/1 

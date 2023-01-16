@@ -14,6 +14,8 @@ public enum SlackNotifierProp {
      */
     USER("ckss.user"),
 
+    SERVER_TOKEN("ckss.token"),
+    INCLUDE_GATE("ckss.gate"),
     /**
      * Appear in Slack channels with this icon
      */
@@ -39,6 +41,8 @@ public enum SlackNotifierProp {
      */
     INCLUDE_BRANCH("ckss.include_branch"),
 
+    NOTIFICATION_TEMPLATE("ckss.template"),
+
     /**
      * <p>
      * The project specific slack channels have to be configured in General, server side settings, instead of per project
@@ -46,10 +50,10 @@ public enum SlackNotifierProp {
      * This is a standard SonarQube way of configuring multivalued fields with org.sonar.api.config.PropertyDefinition.Builder#fields
      * </p>
      * <pre>
-     *     ckss.projectchannels=com.koant.sonar.slack:sonar-slack-notifier-plugin,some:otherproject
+     *     ckss.projectchannels=com.bonespike.sonar.slack:sonar-slack-notifier-plugin,some:otherproject
      *
-     *     ckss.projectchannels.com.koant.sonar.slack:sonar-slack-notifier-plugin.project=com.koant.sonar.slack:sonar-slack-notifier-plugin
-     *     ckss.projectchannels.com.koant.sonar.slack:sonar-slack-notifier-plugin.channel=#random
+     *     ckss.projectchannels.com.bonespike.sonar.slack:sonar-slack-notifier-plugin.project=com.bonespike.sonar.slack:sonar-slack-notifier-plugin
+     *     ckss.projectchannels.com.bonespike.sonar.slack:sonar-slack-notifier-plugin.channel=#random
      *
      *     ckss.projectchannels.some:otherproject.project=some:otherproject
      *     ckss.projectchannels.some:otherproject.channel=#general

@@ -102,6 +102,32 @@ public class SlackNotifierPlugin implements Plugin {
             .subCategory(SUBCATEGORY)
             .index(7)
             .build());
+        extensions.add(PropertyDefinition.builder(NOTIFICATION_TEMPLATE.property())
+            .name("slack template")
+            .description("markdown-based template for slack message - use ${} to hold substitutes")
+            .defaultValue("Project ${project.name} analyzed\n See ${project.url} for info")
+            .type(PropertyType.TEXT)
+            .category(CATEGORY)
+            .subCategory(SUBCATEGORY)
+            .index(8)
+            .build());
+        extensions.add(PropertyDefinition.builder(SERVER_TOKEN.property())
+            .name("server token")
+            .description("sonar token to allow to pull data")
+            .defaultValue(" ")
+            .type(PropertyType.STRING)
+            .category(CATEGORY)
+            .subCategory(SUBCATEGORY)
+            .index(9)
+            .build());
+        extensions.add(PropertyDefinition.builder(INCLUDE_GATE.property())
+            .name("Include gate?")
+            .description("Include quality gate")
+            .type(PropertyType.BOOLEAN)
+            .category(CATEGORY)
+            .subCategory(SUBCATEGORY)
+            .index(10)
+            .build());
         extensions.add(
             PropertyDefinition.builder(CONFIG.property())
                 .name("Project specific configuration")
@@ -109,7 +135,7 @@ public class SlackNotifierPlugin implements Plugin {
                         "If a slack channel is not configured for a project, no slack message will be sent for project.")
                 .category(CATEGORY)
                 .subCategory(SUBCATEGORY)
-                .index(8)
+                .index(11)
                 .fields(
                     PropertyFieldDefinition.build(PROJECT_HOOK.property())
                         .name("Project Hook")
@@ -118,7 +144,7 @@ public class SlackNotifierPlugin implements Plugin {
                         .build(),
                     PropertyFieldDefinition.build(PROJECT_REGEXP.property())
                         .name("Project Key")
-                        .description("Ex: com.koant.sonar.slack:sonar-slack-notifier-plugin, can use '*' wildcard at the end")
+                        .description("Ex: com.bonespike.sonar.slack:sonar-slack-notifier-plugin, can use '*' wildcard at the end")
                         .description("Regex that will match the Project Key of the project. Ex: com\\..* will match all projects that start with 'com.'")
                         .type(PropertyType.STRING)
                         .build(),
