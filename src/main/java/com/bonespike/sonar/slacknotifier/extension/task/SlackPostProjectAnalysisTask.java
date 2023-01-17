@@ -8,6 +8,7 @@ import com.github.seratch.jslack.api.webhook.Payload;
 import com.bonespike.sonar.slacknotifier.common.component.AbstractSlackNotifyingComponent;
 import org.apache.commons.lang.StringUtils;
 import org.assertj.core.util.VisibleForTesting;
+import org.sonar.api.ce.posttask.Branch;
 import org.sonar.api.ce.posttask.PostProjectAnalysisTask;
 import org.sonar.api.config.Configuration;
 // import org.sonar.api.i18n.I18n;
@@ -118,10 +119,12 @@ public class SlackPostProjectAnalysisTask extends AbstractSlackNotifyingComponen
             e.printStackTrace();
         }
         LOG.info("Slack notification will be sent: {}", analysis.toString());
-
-        lookupMap.put("project.url",this.projectUrl(projectKey));
+        Optional<Branch> branch = analysis.getBranch();
+        String branchName = branch.get().getName().orElse("");
+        lookupMap.put("project.url",this.projectUrl(projectKey) + (branch.isPresent() ? "&branch=" + branchName : ""));
         lookupMap.put("project.name",analysis.getProject().getName());
         lookupMap.put("analysis.targetBranch",targetBranch);
+        lookupMap.put("analysis.branch", branchName);
         lookupMap.put("analysis.buildBranch",builtBranch);
 
         //final var payload =
