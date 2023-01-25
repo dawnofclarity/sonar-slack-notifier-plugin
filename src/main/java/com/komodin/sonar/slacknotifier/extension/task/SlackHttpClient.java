@@ -36,7 +36,7 @@ import java.util.concurrent.TimeUnit;
 
 public class SlackHttpClient {
     public static final String CONTENT_TYPE = "content-type";
-    public static final String APPLICATION_X_WWW_FORM_URLENCODED = "application/x-www-form-urlencoded";
+    public static final String APPLICATION_TYPE = "application/json";
     private static final Logger LOG = LoggerFactory.getLogger(SlackHttpClient.class);
     private final OkHttpClient httpClient;
     private final Configuration settings;
@@ -129,8 +129,8 @@ public class SlackHttpClient {
     @NotNull
     private Request buildRequest(final String payloadJson, final String slackIncomingWebhookUrl) {
         final Request.Builder requestBuilder = new Request.Builder().url(slackIncomingWebhookUrl);
-        requestBuilder.addHeader(CONTENT_TYPE, APPLICATION_X_WWW_FORM_URLENCODED);
-        requestBuilder.post(RequestBody.create(payloadJson, MediaType.parse(APPLICATION_X_WWW_FORM_URLENCODED)));
+        requestBuilder.addHeader(CONTENT_TYPE, APPLICATION_TYPE);
+        requestBuilder.post(RequestBody.create(payloadJson, MediaType.parse(APPLICATION_TYPE)));
         return requestBuilder.build();
     }
 
