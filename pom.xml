@@ -94,7 +94,6 @@
       <version>${sonar.testingHarnessVersion}</version>
       <scope>test</scope>
     </dependency>
-    <!-- This is needed in tests to assert i18n behaviour -->
 
     <dependency>
       <groupId>org.projectlombok</groupId>
