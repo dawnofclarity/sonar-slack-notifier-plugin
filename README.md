@@ -1,57 +1,85 @@
-# Warning
+# Disclaimer
 
-This project is a fork of the original work from https://github.com/sleroy/sonar-slack-notifier-plugin.
-I made modifications to keep it working for the latest versions of SonarQube, then added new functionality.
-I felt the amount of changes warrented repackaging the code under my own domain, and as such, I do not plan on 
-merging it back to sleroy's work as a result.  Their work is foundational to this plugin.
+This project is a fork of the original work from https://github.com/sleroy/sonar-slack-notifier-plugin and https://github.com/bonespike/sonar-slack-notifier-plugin.
+
+Together with @listemanuel95, we made modifications to have internationalization taking in count the changes introduced in the latest versions of SonarQube.
+
+Starting from version 9.5 they separated the API from the core of Sonar, so it is now in a separate repository and they removed the i18n methods.
+We've tried to use `org.sonar.api.utils.LocalizedMessages` but the `core.properties` localization file is part of the core and is not accesible from plugins.
+
+At last, we're sorry for repackaging the code under our own domain. We don't plant to merge it back to sleroy's nor bonespike's repos. Just appreciation words for the work they did.
 
 ## Pre-requisites
 
-The actual version is compiled for *SonarQube v8.7/9.6 and JDK 11*.
+Built with JDK 11.0.18 & Maven 3.8.7.
 
-# Bonespike Sonar Slack Notifier Plugin
+# Works with
+
+Tested with SonarQube 9.8 and sent messages to MatterMost 7.1.5 (current ESR) incoming webhooks.
+
+# Sonar Slack Notifier Plugin
 SonarQube plugin for sending notifications to Slack
 
 This plugin sends a Slack message of project analysis outcome to configured project specific slack channel.
-The plugin uses Incoming Web Hook as the integration mechanism with Slack.
+The plugin uses Incoming Web Hook as the integration mechanism with Slack and Slack-compatible API's.
 
 # Install
 The plugin must be placed in *SONAR_HOME/extensions/plugins* directory and SonarQube must be restarted.
 
 ## Using latest release
-You can find the latest release from https://github.com/bonespike/sonar-slack-notifier-plugin/releases/ page.
+You can find the latest release from https://github.com/komodin/sonar-slack-notifier-plugin/releases/ page.
 Download the latest verion's jar file and drop in the directory mentioned above
 
-## From sources
-To build the plugin simply run
+## Building from source
+To build the plugin simply run:
 ```
 mvn clean package
 ```
 
+And it you will get the built .jar inside `target` directory.
 
 # Configuration (updates needed)
 After the plugin has been installed, you need to configure it.
 Although SonarQube offers project level configurations for some plugins, they cannot be used with this plugin because it runs in the "server side", and only sees the global settings.
 
-As administrator, go to the general settings and configure the Sonar instance URL:
-![](documentation/screenshots/administration_server_base_url.png?raw=true)
+First of all, as administrator, go to Administration > Security > Users:
+![](documentation/screenshots/administration_security_users.png?raw=true)
 
-A new category Slack appears in the left menu:
-![](documentation/screenshots/administration_slack_category.png?raw=true)
+Click on Admin user tokens burger button:
+![](documentation/screenshots/administration_tokens_button.png?raw=true)
 
-Under it you can find the CKS Slack Notifier plugin configurations:
-![](documentation/screenshots/administration_cks_slack_notifier_settings.png?raw=true)
+Generate a new token with "No expiration" and copy it:
+![](documentation/screenshots/administration_new_token.png?raw=true)
 
-In the above example there is a Project Key to Slack Channel configuration for an example project.
-You can override the globally  defined web-hook, if you like. Example use case: You want a project to notify a different Slack team.  
-The project key of any SonarQube project can be found in the project page (bottom right corner):
-![](documentation/screenshots/project_key_from_project_page.png?raw=true)
+Go to Administration > Configuration > General Settings and you will see a new `Slack` category in the sidebar:
+![](documentation/screenshots/administration_sidebar.png?raw=true)
+
+There are some mandatory fields that you have to fulfill:
+- Slack user alias
+- Plugin enabled
+- Default Slack channel
+- Server Token
+
+In `Server Token` you have to paste the previously generated token and then click on `Save` button.
+
+There's two ways to configure this plugin: in a generic way or in a per-project basis.
+
+If you want to configure it in a generic way, you have to fulfill the `Slack web integration hook`:
+
+![](documentation/screenshots/administration_slack_part1.png?raw=true)
+
+And also the `Default Slack channel`:
+
+![](documentation/screenshots/administration_slack_part2.png?raw=true)
+
+And to configure it in a per-project basis, you have to configure the `Project Hook` URL, the `Project Key` (regex that will match the Project Key of the project) and the channel where you want to send the notifications:
+
+![](documentation/screenshots/administration_slack_part3.png?raw=true)
+
+Note: if you want to the notification to be sent either if the Quality Gate passed ok or if it failed, you have to click twice on the `Send only if Quality Gate failed` (note that by default is says "(not set)").
 
 ## Wildcard support
-The project key supports wildcards at the end. See https://github.com/bonespike/sonar-slack-notifier-plugin/issues/2
-
-## Only send notification when Quality Gate fails
-Notifications can be sent for all Quality Gate statuses, or just for WARNING/ERROR statuses. See https://github.com/kogitant/sonar-slack-notifier-plugin/issues/1 
+The project key supports wildcards at the end. See https://github.com/kogitant/sonar-slack-notifier-plugin/issues/2
  
 # Example messages posted to Slack
 ## New bug introduced
@@ -60,11 +88,9 @@ Notifications can be sent for all Quality Gate statuses, or just for WARNING/ERR
 ## All good
 ![](documentation/screenshots/example_slack_message_all_green.png)
 
-# Works with
-* Tested with SonarQube 7.2 and 7.3 against Slack on 23.02.2019
-
 # Inspired by
 * https://github.com/sleroy/sonar-slack-notifier-plugin
+* https://github.com/bonespike/sonar-slack-notifier-plugin
 * https://github.com/astrebel/sonar-slack-notifier-plugin
 * https://github.com/dbac2002/sonar-hipchat-plugin
 
@@ -72,13 +98,14 @@ Notifications can be sent for all Quality Gate statuses, or just for WARNING/ERR
 * https://github.com/seratch/jslack
 
 # SonarQube Plugin Development guides
-* https://docs.sonarqube.org/latest/extension-guide/developing-a-plugin/plugin-basics/#api-basics
+* https://docs.sonarqube.org/latest/extension-guide/developing-a-plugin/plugin-basics/
 
-# Slack webhook integration and message formatting guides
+# Slack-compatible webhook integration and message formatting guides
  * https://api.slack.com/custom-integrations
  * https://api.slack.com/docs/attachments#message_formatting
  * https://api.slack.com/docs/attachments
-
+ * https://developers.mattermost.com/integrate/webhooks/incoming/
+ * https://docs.mattermost.com/channels/format-messages.html
 
 # Analyzing this project with unit test and integration test coverage
 ```
