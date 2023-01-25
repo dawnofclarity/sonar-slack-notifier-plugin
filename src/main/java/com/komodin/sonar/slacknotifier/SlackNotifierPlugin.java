@@ -154,7 +154,7 @@ public class SlackNotifierPlugin implements Plugin {
                         .type(PropertyType.STRING)
                         .build(),
                         PropertyFieldDefinition.build(QG_FAIL_ONLY.property())
-                        .name("Send on failed Quality Gate")
+                        .name("Send only if Quality Gate failed")
                         .description("Should notification be sent only if Quality Gate did not pass OK")
                         .type(PropertyType.BOOLEAN)
                         .build(),
