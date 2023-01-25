@@ -103,8 +103,8 @@ public class SlackNotifierPlugin implements Plugin {
             .index(7)
             .build());
         extensions.add(PropertyDefinition.builder(NOTIFICATION_TEMPLATE.property())
-            .name("slack template")
-            .description("markdown-based template for slack message - use ${} to hold substitutes")
+            .name("Slack Template")
+            .description("MarkDown-based template for Slack message. Use ${} to hold substitutes")
             .defaultValue("Project ${project.name} analyzed\n See ${project.url} for info")
             .type(PropertyType.TEXT)
             .category(CATEGORY)
@@ -112,8 +112,8 @@ public class SlackNotifierPlugin implements Plugin {
             .index(8)
             .build());
         extensions.add(PropertyDefinition.builder(SERVER_TOKEN.property())
-            .name("server token")
-            .description("sonar token to allow to pull data")
+            .name("Server Token")
+            .description("Sonar Token used to pull project data")
             .defaultValue(" ")
             .type(PropertyType.STRING)
             .category(CATEGORY)
