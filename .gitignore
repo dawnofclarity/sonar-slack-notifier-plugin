@@ -12,3 +12,7 @@
 **/.idea/
 **/*.iml
 sonar-project.properties
+
+# VS Code configuration files
+**/.vscode
+**/.history
