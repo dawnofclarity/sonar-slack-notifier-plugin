@@ -1,7 +1,6 @@
 package com.komodin.sonar.slacknotifier.extension.task;
 
 import com.komodin.sonar.slacknotifier.common.component.ProjectConfig;
-import com.komodin.sonar.slacknotifier.sonarclient.MeasureHistoryDetails;
 import com.komodin.sonar.slacknotifier.sonarclient.ProjectMeasure;
 import com.komodin.sonar.slacknotifier.sonarclient.SonarClient;
 import com.github.seratch.jslack.api.webhook.Payload;
@@ -11,10 +10,8 @@ import org.assertj.core.util.VisibleForTesting;
 import org.sonar.api.ce.posttask.Branch;
 import org.sonar.api.ce.posttask.PostProjectAnalysisTask;
 import org.sonar.api.config.Configuration;
-// import org.sonar.api.i18n.I18n;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
-
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Arrays;
@@ -28,18 +25,14 @@ import java.util.Optional;
  * Modified by gmilosavljevic
  */
 public class SlackPostProjectAnalysisTask extends AbstractSlackNotifyingComponent implements PostProjectAnalysisTask {
-
     private static final Logger LOG = Loggers.get(SlackPostProjectAnalysisTask.class);
     private List<String> defaultMetrics = Arrays.asList("ncloc","development_cost","sqale_index","vulnerabilities","security_rating","security_review_rating");
     private final SlackHttpClient httpClient;
 
     @VisibleForTesting
-    SlackPostProjectAnalysisTask(final SlackHttpClient httpClient, final Configuration settings
-    // ,final I18n i18n
-    ) {
+    SlackPostProjectAnalysisTask(final SlackHttpClient httpClient, final Configuration settings) {
         super(settings);
         LOG.info("======================SLACK===============");
-    //    this.i18n = i18n;
         this.httpClient = httpClient;
     }
 
@@ -48,14 +41,10 @@ public class SlackPostProjectAnalysisTask extends AbstractSlackNotifyingComponen
      *
      * @param settings
      */
-    public SlackPostProjectAnalysisTask(final Configuration settings
-    //    , final I18n i18n
-    ) {
+    public SlackPostProjectAnalysisTask(final Configuration settings) {
         super(settings);
         LOG.info("======================SLACK===============");
-//        this.i18n = i18n;
         httpClient = new SlackHttpClient(settings);
-
     }
 
     public String getDescription() {
@@ -129,7 +118,6 @@ public class SlackPostProjectAnalysisTask extends AbstractSlackNotifyingComponen
 
         //final var payload =
         Payload payload = ProjectAnalysisPayloadBuilder.of(analysis, this.getSlackTemplate())
-            // .i18n(this.i18n)
             .projectConfig(projectConfig)
             .projectUrl(this.projectUrl(projectKey))
             .props(lookupMap)

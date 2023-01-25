@@ -8,7 +8,6 @@ import org.apache.commons.lang.text.StrSubstitutor;
 import org.sonar.api.ce.posttask.Branch;
 import org.sonar.api.ce.posttask.PostProjectAnalysisTask;
 import org.sonar.api.ce.posttask.QualityGate;
-// import org.sonar.api.i18n.I18n;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
@@ -77,11 +76,11 @@ class ProjectAnalysisPayloadBuilder {
         this.slackUser = slackUser;
         return this;
     }
+
     ProjectAnalysisPayloadBuilder props(final Map props) {
         this.props = props;
         return this;
     }
-
 
     ProjectAnalysisPayloadBuilder projectUrl(final String projectUrl) {
         this.projectUrl = projectUrl;
@@ -102,7 +101,6 @@ class ProjectAnalysisPayloadBuilder {
         assertNotNull(projectConfig, "projectConfig");
         assertNotNull(projectUrl, "projectUrl");
         assertNotNull(slackUser, "slackUser");
-        // assertNotNull(i18n, "i18n");
         assertNotNull(analysis, "analysis");
 
         StrSubstitutor substitutor = new StrSubstitutor(props);
@@ -169,8 +167,10 @@ class ProjectAnalysisPayloadBuilder {
      * @return
      */
     private Field translate(final QualityGate.Condition condition) {
-        final String i18nKey = "metric." + condition.getMetricKey() + ".name";
-        final String conditionName = condition.getMetricKey(); //i18n.message(Locale.ENGLISH, i18nKey, condition.getMetricKey());
+        Locale locale = Locale.ENGLISH;
+        ResourceBundle bundle = ResourceBundle.getBundle("core", locale);
+        String l10nKey = "metric." + condition.getMetricKey() + ".name";
+        String conditionName = bundle.getString(l10nKey);
 
         if (QualityGate.EvaluationStatus.NO_VALUE.equals(condition.getStatus())) {
             // No value for given metric
