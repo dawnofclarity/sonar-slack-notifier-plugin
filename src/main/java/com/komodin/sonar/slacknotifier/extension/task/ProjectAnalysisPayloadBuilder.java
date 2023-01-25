@@ -1,6 +1,6 @@
-package com.bonespike.sonar.slacknotifier.extension.task;
+package com.komodin.sonar.slacknotifier.extension.task;
 
-import com.bonespike.sonar.slacknotifier.common.component.ProjectConfig;
+import com.komodin.sonar.slacknotifier.common.component.ProjectConfig;
 import com.github.seratch.jslack.api.model.Attachment;
 import com.github.seratch.jslack.api.model.Field;
 import com.github.seratch.jslack.api.webhook.Payload;

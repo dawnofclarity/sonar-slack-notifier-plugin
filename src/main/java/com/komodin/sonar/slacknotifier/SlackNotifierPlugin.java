@@ -1,6 +1,6 @@
-package com.bonespike.sonar.slacknotifier;
+package com.komodin.sonar.slacknotifier;
 
-import com.bonespike.sonar.slacknotifier.extension.task.SlackPostProjectAnalysisTask;
+import com.komodin.sonar.slacknotifier.extension.task.SlackPostProjectAnalysisTask;
 import org.sonar.api.Plugin;
 import org.sonar.api.PropertyType;
 import org.sonar.api.config.PropertyDefinition;
@@ -9,7 +9,7 @@ import org.sonar.api.config.PropertyFieldDefinition;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.bonespike.sonar.slacknotifier.common.SlackNotifierProp.*;
+import static com.komodin.sonar.slacknotifier.common.SlackNotifierProp.*;
 
 public class SlackNotifierPlugin implements Plugin {
 
@@ -144,7 +144,7 @@ public class SlackNotifierPlugin implements Plugin {
                         .build(),
                     PropertyFieldDefinition.build(PROJECT_REGEXP.property())
                         .name("Project Key")
-                        .description("Ex: com.bonespike.sonar.slack:sonar-slack-notifier-plugin, can use '*' wildcard at the end")
+                        .description("Ex: com.komodin.sonar.slack:sonar-slack-notifier-plugin, can use '*' wildcard at the end")
                         .description("Regex that will match the Project Key of the project. Ex: com\\..* will match all projects that start with 'com.'")
                         .type(PropertyType.STRING)
                         .build(),

@@ -1,4 +1,4 @@
-package com.bonespike.sonar.slacknotifier.extension.task;
+package com.komodin.sonar.slacknotifier.extension.task;
 
 import org.junit.Before;
 import org.junit.Test;

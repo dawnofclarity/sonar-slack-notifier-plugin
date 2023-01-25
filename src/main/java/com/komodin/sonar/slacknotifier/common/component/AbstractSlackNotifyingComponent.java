@@ -1,6 +1,6 @@
-package com.bonespike.sonar.slacknotifier.common.component;
+package com.komodin.sonar.slacknotifier.common.component;
 
-import com.bonespike.sonar.slacknotifier.common.SlackNotifierProp;
+import com.komodin.sonar.slacknotifier.common.SlackNotifierProp;
 import lombok.extern.slf4j.Slf4j;
 // import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.StringUtils;
@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 /**
  * Abstract base component for Slack notifying Sonar extensions.
- * Concrete implementations must call com.bonespike.sonar.slacknotifier.common.component
+ * Concrete implementations must call com.komodin.sonar.slacknotifier.common.component
  * .AbstractSlackNotifyingComponent#refreshSettings() in the beginning of actual execution.
  */
 @Slf4j

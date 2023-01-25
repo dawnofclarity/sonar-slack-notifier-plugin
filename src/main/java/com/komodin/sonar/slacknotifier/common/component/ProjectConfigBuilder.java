@@ -1,6 +1,6 @@
-package com.bonespike.sonar.slacknotifier.common.component;
+package com.komodin.sonar.slacknotifier.common.component;
 
-import com.bonespike.sonar.slacknotifier.common.SlackNotifierProp;
+import com.komodin.sonar.slacknotifier.common.SlackNotifierProp;
 import org.sonar.api.config.Configuration;
 
 public class ProjectConfigBuilder {

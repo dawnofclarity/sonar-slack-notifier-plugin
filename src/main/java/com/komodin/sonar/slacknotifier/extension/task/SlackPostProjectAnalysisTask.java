@@ -1,11 +1,11 @@
-package com.bonespike.sonar.slacknotifier.extension.task;
+package com.komodin.sonar.slacknotifier.extension.task;
 
-import com.bonespike.sonar.slacknotifier.common.component.ProjectConfig;
-import com.bonespike.sonar.slacknotifier.sonarclient.MeasureHistoryDetails;
-import com.bonespike.sonar.slacknotifier.sonarclient.ProjectMeasure;
-import com.bonespike.sonar.slacknotifier.sonarclient.SonarClient;
+import com.komodin.sonar.slacknotifier.common.component.ProjectConfig;
+import com.komodin.sonar.slacknotifier.sonarclient.MeasureHistoryDetails;
+import com.komodin.sonar.slacknotifier.sonarclient.ProjectMeasure;
+import com.komodin.sonar.slacknotifier.sonarclient.SonarClient;
 import com.github.seratch.jslack.api.webhook.Payload;
-import com.bonespike.sonar.slacknotifier.common.component.AbstractSlackNotifyingComponent;
+import com.komodin.sonar.slacknotifier.common.component.AbstractSlackNotifyingComponent;
 import org.apache.commons.lang.StringUtils;
 import org.assertj.core.util.VisibleForTesting;
 import org.sonar.api.ce.posttask.Branch;

@@ -1,6 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.bonespike.sonar.slack</groupId>
+  <groupId>com.komodin.sonar.slack</groupId>
   <artifactId>sonar-slack-notifier</artifactId>
   <version>10.0-beta1</version>
   <packaging>sonar-plugin</packaging>
@@ -30,11 +30,10 @@
   </properties>
 
   <scm>
-    <connection>scm:git:git@github.com:bonespike/sonar-slack-notifier-plugin.git</connection>
-    <url>scm:git:git@github.com:bonespike/sonar-slack-notifier-plugin.git</url>
-    <developerConnection>scm:git:git@github.com:bonespike/sonar-slack-notifier-plugin.git</developerConnection>
+    <connection>scm:git:git@github.com:komodin/sonar-slack-notifier-plugin.git</connection>
+    <url>scm:git:git@github.com:komodin/sonar-slack-notifier-plugin.git</url>
+    <developerConnection>scm:git:git@github.com:komodin/sonar-slack-notifier-plugin.git</developerConnection>
   </scm>
-  
 
   <dependencies>
     <!-- Dependencies provided by SonarQube server -->
@@ -102,7 +101,6 @@
       <version>1.18.10</version>
     </dependency>
 
-
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-core</artifactId>
@@ -121,7 +119,6 @@
       <version>${jackson-databind.version}</version>
       <scope>test</scope>
     </dependency>
-
 
   </dependencies>
 
@@ -145,15 +142,15 @@
         <configuration>
           <jarName>sonar-slack-notifier-${project.version}</jarName>
           <pluginKey>sonar-slack-notifier</pluginKey>
-          <pluginClass>com.bonespike.sonar.slacknotifier.SlackNotifierPlugin</pluginClass>
+          <pluginClass>com.komodin.sonar.slacknotifier.SlackNotifierPlugin</pluginClass>
           <pluginName>Sonar Slack Notifier</pluginName>
           <pluginDescription>Sends notifications to Slack</pluginDescription>
           <sonarQubeMinVersion>8.0</sonarQubeMinVersion>
-          <pluginUrl>https://github.com/bonespike/sonar-slack-notifier-plugin</pluginUrl>
-          <pluginIssueTrackerUrl>https://github.com/bonespike/sonar-slack-notifier-plugin/issues</pluginIssueTrackerUrl>
-          <pluginSourcesUrl>https://github.com/bonespike/sonar-slack-notifier-plugin</pluginSourcesUrl>
-          <pluginOrganizationName>Bonespike</pluginOrganizationName>
-          <pluginOrganizationUrl>https://github.com/bonespike</pluginOrganizationUrl>
+          <pluginUrl>https://github.com/komodin/sonar-slack-notifier-plugin</pluginUrl>
+          <pluginIssueTrackerUrl>https://github.com/komodin/sonar-slack-notifier-plugin/issues</pluginIssueTrackerUrl>
+          <pluginSourcesUrl>https://github.com/komodin/sonar-slack-notifier-plugin</pluginSourcesUrl>
+          <pluginOrganizationName>komodin</pluginOrganizationName>
+          <pluginOrganizationUrl>https://github.com/komodin</pluginOrganizationUrl>
         </configuration>
       </plugin>
     </plugins>

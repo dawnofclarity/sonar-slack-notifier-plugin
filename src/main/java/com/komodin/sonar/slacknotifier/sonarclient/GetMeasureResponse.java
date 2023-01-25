@@ -1,4 +1,4 @@
-package com.bonespike.sonar.slacknotifier.sonarclient;
+package com.komodin.sonar.slacknotifier.sonarclient;
 
 import lombok.Data;
 

@@ -1,4 +1,4 @@
-package com.bonespike.sonar.slacknotifier.common.component;
+package com.komodin.sonar.slacknotifier.common.component;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

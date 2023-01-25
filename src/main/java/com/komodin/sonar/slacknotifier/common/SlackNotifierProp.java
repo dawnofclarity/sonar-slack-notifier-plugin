@@ -1,6 +1,6 @@
-package com.bonespike.sonar.slacknotifier.common;
+package com.komodin.sonar.slacknotifier.common;
 
-import com.bonespike.sonar.slacknotifier.SlackNotifierPlugin;
+import com.komodin.sonar.slacknotifier.SlackNotifierPlugin;
 
 public enum SlackNotifierProp {
 
@@ -50,10 +50,10 @@ public enum SlackNotifierProp {
      * This is a standard SonarQube way of configuring multivalued fields with org.sonar.api.config.PropertyDefinition.Builder#fields
      * </p>
      * <pre>
-     *     ckss.projectchannels=com.bonespike.sonar.slack:sonar-slack-notifier-plugin,some:otherproject
+     *     ckss.projectchannels=com.komodin.sonar.slack:sonar-slack-notifier-plugin,some:otherproject
      *
-     *     ckss.projectchannels.com.bonespike.sonar.slack:sonar-slack-notifier-plugin.project=com.bonespike.sonar.slack:sonar-slack-notifier-plugin
-     *     ckss.projectchannels.com.bonespike.sonar.slack:sonar-slack-notifier-plugin.channel=#random
+     *     ckss.projectchannels.com.komodin.sonar.slack:sonar-slack-notifier-plugin.project=com.komodin.sonar.slack:sonar-slack-notifier-plugin
+     *     ckss.projectchannels.com.komodin.sonar.slack:sonar-slack-notifier-plugin.channel=#random
      *
      *     ckss.projectchannels.some:otherproject.project=some:otherproject
      *     ckss.projectchannels.some:otherproject.channel=#general

@@ -14,9 +14,9 @@
  * is strictly forbidden unless prior written permission is obtained
  * from Faveeo SA.
  */
-package com.bonespike.sonar.slacknotifier.extension.task;
+package com.komodin.sonar.slacknotifier.extension.task;
 
-import com.bonespike.sonar.slacknotifier.common.SlackNotifierProp;
+import com.komodin.sonar.slacknotifier.common.SlackNotifierProp;
 import com.github.seratch.jslack.api.webhook.Payload;
 import com.github.seratch.jslack.common.json.GsonFactory;
 import com.google.gson.Gson;
