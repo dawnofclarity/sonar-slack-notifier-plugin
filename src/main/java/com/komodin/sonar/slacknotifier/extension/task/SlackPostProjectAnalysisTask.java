@@ -110,7 +110,7 @@ public class SlackPostProjectAnalysisTask extends AbstractSlackNotifyingComponen
         LOG.info("Slack notification will be sent: {}", analysis.toString());
         Optional<Branch> branch = analysis.getBranch();
         String branchName = branch.get().getName().orElse("");
-        lookupMap.put("project.url",this.projectUrl(projectKey) + (branch.isPresent() ? "&branch=" + branchName : ""));
+        lookupMap.put("project.url",this.projectUrl(projectKey));
         lookupMap.put("project.name",analysis.getProject().getName());
         lookupMap.put("analysis.targetBranch",targetBranch);
         lookupMap.put("analysis.branch", branchName);
