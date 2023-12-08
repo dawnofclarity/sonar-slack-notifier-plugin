@@ -15,7 +15,7 @@ Built with JDK 11.0.18 & Maven 3.8.7.
 
 # Works with
 
-Tested with SonarQube 9.8 and sent messages to MatterMost 7.1.5 (current ESR) incoming webhooks.
+Tested with SonarQube 10.3 and sent messages to MatterMost 8.1.7 (current ESR) incoming webhooks.
 
 # Sonar Slack Notifier Plugin
 
