@@ -11,11 +11,11 @@ At last, we're sorry for repackaging the code under our own domain. We don't pla
 
 ## Pre-requisites
 
-Built with JDK 11.0.18 & Maven 3.8.7.
+Built with JDK 17.0.10 & Maven 3.8.6.
 
 # Works with
 
-Tested with SonarQube 9.8 and sent messages to MatterMost 7.1.5 (current ESR) incoming webhooks.
+Tested with SonarQube 10.4 and sent messages to MatterMost 8.1.9 (current ESR) incoming webhooks.
 
 # Sonar Slack Notifier Plugin
 

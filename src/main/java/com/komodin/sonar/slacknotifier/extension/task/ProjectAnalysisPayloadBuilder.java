@@ -35,7 +35,6 @@ class ProjectAnalysisPayloadBuilder {
 
     static {
         statusToColor.put(QualityGate.Status.OK, SLACK_GOOD_COLOUR);
-        statusToColor.put(QualityGate.Status.WARN, SLACK_WARNING_COLOUR);
         statusToColor.put(QualityGate.Status.ERROR, SLACK_DANGER_COLOUR);
     }
 
@@ -216,12 +215,6 @@ class ProjectAnalysisPayloadBuilder {
 
     private void appendValueOperatorPrefix(final QualityGate.Condition condition, final StringBuilder sb) {
         switch (condition.getOperator()) {
-            case EQUALS:
-                sb.append("==");
-                break;
-            case NOT_EQUALS:
-                sb.append("!=");
-                break;
             case GREATER_THAN:
                 sb.append(">");
                 break;

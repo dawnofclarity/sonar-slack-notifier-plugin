@@ -1,17 +1,22 @@
 package com.komodin.sonar.slacknotifier.extension.task;
 
-import static org.sonar.api.ce.posttask.PostProjectAnalysisTaskTester.newCeTaskBuilder;
-import static org.sonar.api.ce.posttask.PostProjectAnalysisTaskTester.newConditionBuilder;
-import static org.sonar.api.ce.posttask.PostProjectAnalysisTaskTester.newQualityGateBuilder;
-import static org.sonar.api.ce.posttask.PostProjectAnalysisTaskTester.newScannerContextBuilder;
+import static org.sonar.api.testfixtures.posttask.PostProjectAnalysisTaskTester.newBranchBuilder;
+import static org.sonar.api.testfixtures.posttask.PostProjectAnalysisTaskTester.newCeTaskBuilder;
+import static org.sonar.api.testfixtures.posttask.PostProjectAnalysisTaskTester.newConditionBuilder;
+import static org.sonar.api.testfixtures.posttask.PostProjectAnalysisTaskTester.newProjectBuilder;
+import static org.sonar.api.testfixtures.posttask.PostProjectAnalysisTaskTester.newQualityGateBuilder;
+import static org.sonar.api.testfixtures.posttask.PostProjectAnalysisTaskTester.newScannerContextBuilder;
 
+import org.sonar.api.ce.posttask.Analysis;
 import org.sonar.api.ce.posttask.Branch;
 import org.sonar.api.ce.posttask.CeTask;
 import org.sonar.api.ce.posttask.PostProjectAnalysisTask;
-import org.sonar.api.ce.posttask.PostProjectAnalysisTaskTester;
 import org.sonar.api.ce.posttask.Project;
 import org.sonar.api.ce.posttask.QualityGate;
+import org.sonar.api.ce.posttask.ScannerContext;
+
 import org.sonar.api.measures.CoreMetrics;
+import org.sonar.api.testfixtures.posttask.PostProjectAnalysisTaskTester;
 
 import java.util.Date;
 
@@ -19,7 +24,7 @@ public class Analyses {
 
     public static final String PROJECT_KEY = "my-sonar-project-key";
     private static final String PROJECT_NAME = "Sonar Project Name";
-    private static final Project PROJECT = PostProjectAnalysisTaskTester.newProjectBuilder()
+    private static final Project PROJECT = newProjectBuilder()
             .setUuid("uuid")
             .setKey(PROJECT_KEY)
             .setName(PROJECT_NAME)
@@ -29,7 +34,7 @@ public class Analyses {
             .setStatus(CeTask.Status.SUCCESS)
             .build();
 
-    public static void simple(final PostProjectAnalysisTask analysisTask) {
+    public static void simple(PostProjectAnalysisTask analysisTask) {
         PostProjectAnalysisTaskTester.of(analysisTask)
                 .withCeTask(CE_TASK)
                 .withProject(PROJECT)
@@ -45,7 +50,6 @@ public class Analyses {
                                                 .setMetricKey("metric key")
                                                 .setOperator(QualityGate.Operator.GREATER_THAN)
                                                 .setErrorThreshold("12")
-                                                .setOnLeakPeriod(true)
                                                 .build(QualityGate.EvaluationStatus.OK, "value"))
                                 .build())
                 .execute();
@@ -73,7 +77,6 @@ public class Analyses {
                                                 .setMetricKey("metric key")
                                                 .setOperator(QualityGate.Operator.GREATER_THAN)
                                                 .setErrorThreshold("12")
-                                                .setOnLeakPeriod(true)
                                                 .build(QualityGate.EvaluationStatus.OK, "value"))
                                 .build())
                 .execute();
@@ -93,26 +96,21 @@ public class Analyses {
                                         .setMetricKey(CoreMetrics.NEW_VULNERABILITIES_KEY)
                                         .setOperator(QualityGate.Operator.GREATER_THAN)
                                         .setErrorThreshold("0")
-                                        .setOnLeakPeriod(true)
                                         .build(QualityGate.EvaluationStatus.OK, "0"))
                                 .add(newConditionBuilder()
                                         .setMetricKey(CoreMetrics.NEW_BUGS_KEY)
                                         .setOperator(QualityGate.Operator.GREATER_THAN)
                                         .setErrorThreshold("0")
-                                        .setOnLeakPeriod(true)
                                         .build(QualityGate.EvaluationStatus.ERROR, "1"))
                                 .add(newConditionBuilder()
                                         .setMetricKey(CoreMetrics.NEW_SQALE_DEBT_RATIO_KEY)
                                         .setOperator(QualityGate.Operator.GREATER_THAN)
-                                        .setWarningThreshold("2.0")
                                         .setErrorThreshold("10.0")
-                                        .setOnLeakPeriod(true)
                                         .build(QualityGate.EvaluationStatus.OK, "0.00666667"))
                                 .add(newConditionBuilder()
                                         .setMetricKey(CoreMetrics.NEW_COVERAGE_KEY)
                                         .setOperator(QualityGate.Operator.LESS_THAN)
                                         .setErrorThreshold("80.0")
-                                        .setOnLeakPeriod(true)
                                         .build(QualityGate.EvaluationStatus.ERROR, "75.509999999999"))
                                 .build())
                 .execute();
@@ -137,7 +135,7 @@ public class Analyses {
                                         .setMetricKey(CoreMetrics.FUNCTIONS_KEY)
                                         .setErrorThreshold("0")
                                         .setOperator(QualityGate.Operator.GREATER_THAN)
-                                        .build(QualityGate.EvaluationStatus.WARN, "1"))
+                                        .build(QualityGate.EvaluationStatus.ERROR, "1"))
                                 .add(newConditionBuilder()
                                         .setMetricKey(CoreMetrics.VIOLATIONS_KEY)
                                         .setErrorThreshold("5")
