@@ -2,7 +2,6 @@ package com.komodin.sonar.slacknotifier.common.component;
 
 import com.komodin.sonar.slacknotifier.common.SlackNotifierProp;
 import lombok.extern.slf4j.Slf4j;
-// import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.sonar.api.ce.posttask.QualityGate;
@@ -156,7 +155,6 @@ public abstract class AbstractSlackNotifyingComponent {
         List<ProjectConfig> list = new ArrayList<>();
         Map<String, ProjectConfig> stringProjectConfigMap = this.projectConfigMap;
         for (String s : this.projectConfigMap.keySet()) {
-            //if (projectKey.matches(s)) {
             if (StringUtils.contains(s, projectKey)) {
                 ProjectConfig projectConfig = stringProjectConfigMap.get(s);
                 list.add(projectConfig);

@@ -1,24 +1,20 @@
 package com.komodin.sonar.slacknotifier.extension.task;
 
-import static org.sonar.api.testfixtures.posttask.PostProjectAnalysisTaskTester.newBranchBuilder;
-import static org.sonar.api.testfixtures.posttask.PostProjectAnalysisTaskTester.newCeTaskBuilder;
-import static org.sonar.api.testfixtures.posttask.PostProjectAnalysisTaskTester.newConditionBuilder;
-import static org.sonar.api.testfixtures.posttask.PostProjectAnalysisTaskTester.newProjectBuilder;
-import static org.sonar.api.testfixtures.posttask.PostProjectAnalysisTaskTester.newQualityGateBuilder;
-import static org.sonar.api.testfixtures.posttask.PostProjectAnalysisTaskTester.newScannerContextBuilder;
-
-import org.sonar.api.ce.posttask.Analysis;
 import org.sonar.api.ce.posttask.Branch;
 import org.sonar.api.ce.posttask.CeTask;
 import org.sonar.api.ce.posttask.PostProjectAnalysisTask;
 import org.sonar.api.ce.posttask.Project;
 import org.sonar.api.ce.posttask.QualityGate;
-import org.sonar.api.ce.posttask.ScannerContext;
-
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.testfixtures.posttask.PostProjectAnalysisTaskTester;
 
 import java.util.Date;
+
+import static org.sonar.api.testfixtures.posttask.PostProjectAnalysisTaskTester.newCeTaskBuilder;
+import static org.sonar.api.testfixtures.posttask.PostProjectAnalysisTaskTester.newConditionBuilder;
+import static org.sonar.api.testfixtures.posttask.PostProjectAnalysisTaskTester.newProjectBuilder;
+import static org.sonar.api.testfixtures.posttask.PostProjectAnalysisTaskTester.newQualityGateBuilder;
+import static org.sonar.api.testfixtures.posttask.PostProjectAnalysisTaskTester.newScannerContextBuilder;
 
 public class Analyses {
 

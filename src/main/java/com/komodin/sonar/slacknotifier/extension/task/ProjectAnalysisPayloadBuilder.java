@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 
 import static java.lang.String.format;
 import static org.apache.commons.lang.StringUtils.isNotBlank;
-// import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 /**
  * Created by ak on 18/10/16.
