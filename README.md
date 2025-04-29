@@ -11,11 +11,11 @@ At last, we're sorry for repackaging the code under our own domain. We don't pla
 
 ## Pre-requisites
 
-Built with JDK 17.0.13 & Maven 3.8.6.
+Built with JDK 17.0.14 & Maven 3.8.6.
 
 # Works with
 
-Tested with SonarQube 10.7.
+Tested with SonarQube 25.3.
 
 # Sonar Slack Notifier Plugin
 
