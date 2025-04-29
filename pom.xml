@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.komodin.sonar.slack</groupId>
   <artifactId>sonar-slack-notifier</artifactId>
-  <version>10.4</version>
+  <version>25.3</version>
   <packaging>sonar-plugin</packaging>
 
   <name>Sonar Slack Notifier Plugin</name>
